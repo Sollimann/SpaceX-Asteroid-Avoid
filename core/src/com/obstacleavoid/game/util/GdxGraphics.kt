@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 
 
 @JvmOverloads
@@ -11,14 +12,20 @@ fun clearScreen(color: Color = Color.BLACK)  = clearScreen(color.r, color.g, col
 
 fun clearScreen(red: Float, green: Float, blue: Float, alpha: Float) {
     // For clearing screen
-// DRY - Don't repeat yourself
-// WET - Waste everyone's time
+    // DRY - Don't repeat yourself
+    // WET - Waste everyone's time
     Gdx.gl.glClearColor(red, green, blue, alpha)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
 }
 
 inline fun Batch.use(action: () -> Unit) {
     begin()
+    action()
+    end()
+}
+
+inline fun ShapeRenderer.use(action: () -> Unit){
+    begin(ShapeRenderer.ShapeType.Line)
     action()
     end()
 }
