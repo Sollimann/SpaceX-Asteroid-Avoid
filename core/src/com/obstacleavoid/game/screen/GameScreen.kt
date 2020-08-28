@@ -2,16 +2,14 @@ package com.obstacleavoid.game.screen
 
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.clearScreen
+import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
-import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
 
 class GameScreen : Screen {
@@ -20,6 +18,7 @@ class GameScreen : Screen {
     private lateinit var viewport: Viewport
     private lateinit var renderer: ShapeRenderer
     private lateinit var player: Player
+    private lateinit var debugCameraController: DebugCameraController
 
     override fun hide() {
         dispose()
@@ -27,9 +26,11 @@ class GameScreen : Screen {
 
     override fun show() {
         camera = OrthographicCamera()
-        //camera.zoom = 2f
         viewport = FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera)
         renderer = ShapeRenderer()
+
+        debugCameraController = DebugCameraController()
+        debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y)
 
         // create player
         player = Player()
@@ -43,6 +44,10 @@ class GameScreen : Screen {
     }
 
     override fun render(delta: Float) {
+        // handle debug camera controller
+        debugCameraController.handleDebugInput()
+        debugCameraController.applyTo(camera)
+
         // update game world
         player.update()
 
