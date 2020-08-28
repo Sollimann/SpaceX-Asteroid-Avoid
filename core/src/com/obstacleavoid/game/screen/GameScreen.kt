@@ -43,6 +43,10 @@ class GameScreen : Screen {
     }
 
     override fun render(delta: Float) {
+        // update game world
+        player.update()
+
+
         clearScreen()
         renderer.projectionMatrix = camera.combined
 
