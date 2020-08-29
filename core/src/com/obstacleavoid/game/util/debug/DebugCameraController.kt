@@ -31,6 +31,7 @@ class DebugCameraController {
     // properties
     private val position = Vector2()
     private val startPosition = Vector2()
+    private val config = DebugCameraConfig()
 
     private var zoom = 1f
         set(value) {

@@ -109,7 +109,7 @@ class DebugCameraConfig {
         }
     }
 
-    private fun getInputKeyValue(jsonValue: JsonValue, name: String, defaultInputKey: Int) : Int {
+    private fun getInputKeyValue(jsonValue: JsonValue, name: String, defaultInputKey: Int): Int {
         val keyString = jsonValue.getString(name, Input.Keys.toString(defaultInputKey))
         return Input.Keys.valueOf(keyString)
     }
@@ -134,8 +134,10 @@ class DebugCameraConfig {
 
 
     // override toString method for class
-    override fun toString() : String {
-        return  """
+    override fun toString(): String {
+        // NOTE: empty line after """ will add newline
+        return """
+            
              ${DebugCameraConfig::class.java.simpleName} {
              maxZoomIn = $maxZoomIn
              maxZoomOut = $maxZoomOut
