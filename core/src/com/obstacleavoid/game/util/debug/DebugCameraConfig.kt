@@ -44,7 +44,7 @@ class DebugCameraConfig {
         private const val FILE_PATH = "debug/debug-camera-config.json"
     }
 
-    // properties
+    // private properties
     private var leftKey = DEFAULT_LEFT_KEY
     private var rightKey = DEFAULT_RIGHT_KEY
     private var upKey = DEFAULT_UP_KEY
@@ -55,10 +55,15 @@ class DebugCameraConfig {
     private var resetKey = DEFAULT_RESET_KEY
     private var logKey = DEFAULT_LOG_KEY
 
-    private var maxZoomIn = DEFAULT_MAX_ZOOM_IN
-    private var maxZoomOut = DEFAULT_MAX_ZOOM_OUT
-    private var moveSpeed = DEFAULT_MOVE_SPEED
-    private var zoomSpeed = DEFAULT_ZOOM_SPEED
+    // public properties
+    var maxZoomIn = DEFAULT_MAX_ZOOM_IN
+        private set
+    var maxZoomOut = DEFAULT_MAX_ZOOM_OUT
+        private set
+    var moveSpeed = DEFAULT_MOVE_SPEED
+        private set
+    var zoomSpeed = DEFAULT_ZOOM_SPEED
+        private set
 
     private var fileHandle = FILE_PATH.toInternalFile()
 
@@ -137,8 +142,8 @@ class DebugCameraConfig {
     override fun toString(): String {
         // NOTE: empty line after """ will add newline
         return """
-            
-             ${DebugCameraConfig::class.java.simpleName} {
+
+        ${DebugCameraConfig::class.java.simpleName} {
              maxZoomIn = $maxZoomIn
              maxZoomOut = $maxZoomOut
              moveSpeed = $moveSpeed

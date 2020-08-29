@@ -13,19 +13,6 @@ class DebugCameraController {
     companion object {
         @JvmStatic
         private val log = logger<DebugCameraController>()
-
-        private const val DEFAULT_LEFT_KEY = Input.Keys.A
-        private const val DEFAULT_RIGHT_KEY = Input.Keys.D
-        private const val DEFAULT_UP_KEY = Input.Keys.W
-        private const val DEFAULT_DOWN_KEY = Input.Keys.S
-        private const val DEFAULT_ZOOM_IN_KEY = Input.Keys.COMMA
-        private const val DEFAULT_ZOOM_OUT_KEY = Input.Keys.PERIOD
-        private const val DEFAULT_RESET_KEY = Input.Keys.BACKSPACE
-        private const val DEFAULT_LOG_KEY = Input.Keys.ENTER
-        private const val DEFAULT_MOVE_SPEED = 20f
-        private const val DEFAULT_ZOOM_SPEED = 2f
-        private const val DEFAULT_MAX_ZOOM_IN = 0.25f
-        private const val DEFAULT_MAX_ZOOM_OUT = 10f
     }
 
     // properties
@@ -36,8 +23,13 @@ class DebugCameraController {
     private var zoom = 1f
         set(value) {
             // the setter will make sure that zoom is within bounds
-            field = MathUtils.clamp(value, DEFAULT_MAX_ZOOM_IN, DEFAULT_MAX_ZOOM_OUT)
+            field = MathUtils.clamp(value, config.maxZoomIn, config.maxZoomOut)
         }
+
+    // init
+    init {
+        log.debug("$config")
+    }
 
     // public functions
     fun setStartPosition(x: Float, y: Float){
@@ -53,23 +45,23 @@ class DebugCameraController {
 
     fun handleDebugInput() {
         val delta = Gdx.graphics.deltaTime
-        val moveSpeed = DEFAULT_MOVE_SPEED * delta
-        val zoomSpeed = DEFAULT_ZOOM_SPEED * delta
+        val moveSpeed = config.moveSpeed * delta
+        val zoomSpeed = config.zoomSpeed * delta
 
         when {
             // move controls
-            DEFAULT_LEFT_KEY.isKeyPressed() -> moveLeft(moveSpeed)
-            DEFAULT_RIGHT_KEY.isKeyPressed() -> moveRight(moveSpeed)
-            DEFAULT_UP_KEY.isKeyPressed() -> moveUp(moveSpeed)
-            DEFAULT_DOWN_KEY.isKeyPressed() -> moveDown(moveSpeed)
+            config.isLeftPressed() -> moveLeft(moveSpeed)
+            config.isRightPressed() -> moveRight(moveSpeed)
+            config.isUpPressed() -> moveUp(moveSpeed)
+            config.isDownPressed() -> moveDown(moveSpeed)
 
             // zoom controls
-            DEFAULT_ZOOM_IN_KEY.isKeyPressed() -> zoomIn(zoomSpeed)
-            DEFAULT_ZOOM_OUT_KEY.isKeyPressed() -> zoomOut(zoomSpeed)
+            config.isZoomInPressed() -> zoomIn(zoomSpeed)
+            config.isZoomOutPressed() -> zoomOut(zoomSpeed)
 
             // resest/log controls
-            DEFAULT_RESET_KEY.isKeyPressed() -> reset()
-            DEFAULT_LOG_KEY.isKeyPressed() -> log.debug("position= $position, zoom= $zoom")
+            config.isResetPressed() -> reset()
+            config.isLogPressed() -> log.debug("position= $position, zoom= $zoom")
         }
     }
 
