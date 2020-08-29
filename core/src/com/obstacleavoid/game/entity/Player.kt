@@ -28,13 +28,7 @@ class Player {
             updateBounds()
         }
 
-    val bounds: Circle
-
-    // init
-    init {
-        bounds = Circle(x,y, BOUNDS_RADIUS)
-    }
-
+    val bounds = Circle(x,y, BOUNDS_RADIUS)
 
     fun update() {
         var xSpeed = 0f
@@ -45,14 +39,12 @@ class Player {
         }
 
         x += xSpeed
-        updateBounds()
     }
 
     // public functions
     fun setPosition(x: Float, y: Float) {
         this.x = x
         this.y = y
-        updateBounds()
     }
 
     fun drawDebug(renderer: ShapeRenderer) = renderer.circle(bounds.x, bounds.y, bounds.radius, 30)
