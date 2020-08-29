@@ -9,14 +9,24 @@ class Player {
 
     companion object{
         // constants
-        private const val BOUNDS_RADIUS = 0.4f // world units
+        const val BOUNDS_RADIUS = 0.4f // world units
+        const val HALF_SIZE = BOUNDS_RADIUS
         private const val SIZE = BOUNDS_RADIUS * 2f // world units
         private const val MAX_X_SPEED = 0.25f // world units
     }
 
     // properties
     var x: Float = 0f
+        set(value) {
+            field = value
+            updateBounds()
+        }
+
     var y: Float = 0f
+        set(value) {
+            field = value
+            updateBounds()
+        }
 
     val bounds: Circle
 

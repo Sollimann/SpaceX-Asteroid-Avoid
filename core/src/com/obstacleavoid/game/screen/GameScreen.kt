@@ -3,6 +3,7 @@ package com.obstacleavoid.game.screen
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.config.GameConfig
@@ -50,6 +51,7 @@ class GameScreen : Screen {
 
         // update game world
         player.update()
+        blockPlayerFromLeavingWorldBounds()
 
 
         clearScreen()
@@ -58,6 +60,20 @@ class GameScreen : Screen {
         renderer.use { player.drawDebug(renderer)}
 
         viewport.drawGrid(renderer)
+    }
+
+    private fun blockPlayerFromLeavingWorldBounds() {
+        /*
+        if(player.x < Player.HALF_SIZE){
+            player.x = Player.BOUNDS_RADIUS
+        }
+
+        if(player.x > GameConfig.WORLD_WIDTH - Player.HALF_SIZE){
+            player.x = GameConfig.WORLD_WIDTH - Player.HALF_SIZE
+        }
+         */
+
+        player.x = MathUtils.clamp(player.x, Player.HALF_SIZE, GameConfig.WORLD_WIDTH - Player.HALF_SIZE)
     }
 
     override fun pause() {
