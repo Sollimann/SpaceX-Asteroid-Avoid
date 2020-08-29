@@ -24,8 +24,8 @@ class DebugCameraController {
         private const val DEFAULT_LOG_KEY = Input.Keys.ENTER
         private const val DEFAULT_MOVE_SPEED = 20f
         private const val DEFAULT_ZOOM_SPEED = 2f
-        private const val DEFAULT_MAX_ZOOM_IN = 0.2f
-        private const val DEFAULT_MAX_ZOOM_OUT = 30f
+        private const val DEFAULT_MAX_ZOOM_IN = 0.25f
+        private const val DEFAULT_MAX_ZOOM_OUT = 10f
     }
 
     // properties

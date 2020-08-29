@@ -1,7 +1,7 @@
 {
   "maxZoomIn": "0.25",
   "maxZoomOut": "10",
-  "moveSpeed": "40",
+  "moveSpeed": "20",
   "zoomSpeed": "2",
 
   "leftKey": "A",
