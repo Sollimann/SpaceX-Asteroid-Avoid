@@ -7,7 +7,9 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.config.GameConfig
+import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
+import com.obstacleavoid.game.util.GdxArray
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
@@ -20,6 +22,9 @@ class GameScreen : Screen {
     private lateinit var renderer: ShapeRenderer
     private lateinit var player: Player
     private lateinit var debugCameraController: DebugCameraController
+
+    private var obstacleTimer = 0f
+    private val obstacles = GdxArray<Obstacle>()
 
     override fun hide() {
         dispose()
@@ -53,13 +58,39 @@ class GameScreen : Screen {
         player.update()
         blockPlayerFromLeavingWorldBounds()
 
+        updateObstacles()
+        createNewObstacle(delta)
 
         clearScreen()
         renderer.projectionMatrix = camera.combined
 
-        renderer.use { player.drawDebug(renderer)}
+        renderer.use {
+            player.drawDebug(renderer)
+
+            obstacles.forEach { it.drawDebug(renderer)}
+        }
 
         viewport.drawGrid(renderer)
+    }
+
+    private fun updateObstacles(){
+        obstacles.forEach { it.update() } // same as writing obstacle -> obstacle.update()
+    }
+
+    private fun createNewObstacle(delta: Float) {
+        obstacleTimer += delta
+
+        if(obstacleTimer >= GameConfig.OBSTACLE_SPAWN_TIME){
+            obstacleTimer = 0f // reset timer
+
+            // spawn obstacle at random x position
+            val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH)
+            val obstacle = Obstacle()
+            obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
+
+            // add to array
+            obstacles.add(obstacle)
+        }
     }
 
     private fun blockPlayerFromLeavingWorldBounds() {

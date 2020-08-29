@@ -1,6 +1,8 @@
 package com.obstacleavoid.game.entity
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Circle
+import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.logger
 
 class Obstacle {
@@ -39,8 +41,8 @@ class Obstacle {
         this.y = y
     }
 
+    fun drawDebug(renderer: ShapeRenderer) = renderer.circle(bounds)
+
     // private methods
-    private fun updateBounds() {
-        bounds.setPosition(x, y)
-    }
+    private fun updateBounds() = bounds.setPosition(x, y)
 }
