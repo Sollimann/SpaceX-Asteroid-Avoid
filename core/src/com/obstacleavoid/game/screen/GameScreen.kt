@@ -24,6 +24,8 @@ class GameScreen : Screen {
     private lateinit var debugCameraController: DebugCameraController
 
     private var obstacleTimer = 0f
+    private var alive = true
+
     private val obstacles = GdxArray<Obstacle>()
 
     override fun hide() {
@@ -54,12 +56,9 @@ class GameScreen : Screen {
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)
 
-        // update game world
-        player.update()
-        blockPlayerFromLeavingWorldBounds()
-
-        updateObstacles()
-        createNewObstacle(delta)
+        if(alive) {
+         update(delta)
+        }
 
         clearScreen()
         renderer.projectionMatrix = camera.combined
@@ -71,6 +70,29 @@ class GameScreen : Screen {
         }
 
         viewport.drawGrid(renderer)
+    }
+
+    private fun update(delta: Float) {
+        // update game world
+        player.update()
+        blockPlayerFromLeavingWorldBounds()
+
+        updateObstacles()
+        createNewObstacle(delta)
+
+        if(isPlayerCollidingWithObstacle()){
+            alive = false
+        }
+    }
+
+    private fun isPlayerCollidingWithObstacle() : Boolean {
+        obstacles.forEach {
+            if(it.isCollidingWith(gameObject = player)){
+                return true
+            }
+        }
+
+        return false
     }
 
     private fun updateObstacles(){

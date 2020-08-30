@@ -2,6 +2,7 @@ package com.obstacleavoid.game.entity
 
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Circle
+import com.badlogic.gdx.math.Intersector
 
 abstract class GameObjectBase {
     // properties
@@ -25,6 +26,8 @@ abstract class GameObjectBase {
     }
 
     fun drawDebug(renderer: ShapeRenderer) = renderer.circle(bounds.x, bounds.y, bounds.radius, 30)
+
+    fun isCollidingWith(gameObject: GameObjectBase) = Intersector.overlaps(gameObject.bounds, bounds)
 
     // private functions
     private fun updateBounds() = bounds.setPosition(x,y)

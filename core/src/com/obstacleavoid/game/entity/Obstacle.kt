@@ -1,6 +1,7 @@
 package com.obstacleavoid.game.entity
 
 import com.badlogic.gdx.math.Circle
+import com.badlogic.gdx.math.Intersector
 
 class Obstacle : GameObjectBase() {
     companion object {
