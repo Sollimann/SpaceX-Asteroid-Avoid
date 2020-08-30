@@ -2,7 +2,7 @@
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/obstacle-avoidance-game.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/pulls)
 [![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/obstacle-avoidance-game/releases/)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/obstacle-avoidance-game/issues)
-[![HitCount](http://hits.dwyl.com/Sollimann/obstacle-avoidance-game.svg)](http://hits.dwyl.com/Sollimann/obstacle-avoidance-game)
+![ViewCount](https://views.whatilearened.today/views/github/Sollimann/obstacle-avoidance-game.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/graphs/commit-activity)
 ## Setup in IntelliJ
