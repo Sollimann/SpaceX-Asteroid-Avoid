@@ -47,6 +47,13 @@ class GameController {
 
     // public functions
     fun update(delta: Float) {
+
+        // if game is over, do not run the code below
+        // jump out
+        if(gameOver){
+            return
+        }
+
         // update game world
         player.update()
         blockPlayerFromLeavingWorldBounds()
