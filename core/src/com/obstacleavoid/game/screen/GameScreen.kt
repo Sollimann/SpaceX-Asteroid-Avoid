@@ -25,13 +25,13 @@ class GameScreen : Screen {
 
     private lateinit var camera: OrthographicCamera
     private lateinit var viewport: Viewport
-    private lateinit var uiCamera : OrthographicCamera
+    private lateinit var uiCamera: OrthographicCamera
     private lateinit var uiViewport: Viewport
     private lateinit var renderer: ShapeRenderer
     private lateinit var player: Player
     private lateinit var debugCameraController: DebugCameraController
-    private lateinit var batch : SpriteBatch
-    private lateinit var uiFont : BitmapFont
+    private lateinit var batch: SpriteBatch
+    private lateinit var uiFont: BitmapFont
 
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
@@ -42,6 +42,12 @@ class GameScreen : Screen {
 
     private val obstacles = GdxArray<Obstacle>()
     private val layout = GlyphLayout()
+
+    // boolean game over property using a getter
+    // everytime we cal the gameOver val, it will execute
+    // and return the result of lives <= 0
+    private val gameOver
+        get() = lives <= 0
 
     override fun show() {
         camera = OrthographicCamera()
@@ -75,7 +81,7 @@ class GameScreen : Screen {
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)
 
-        update(delta)
+        if (!gameOver) update(delta)
 
         clearScreen()
         renderer.projectionMatrix = camera.combined
@@ -83,7 +89,7 @@ class GameScreen : Screen {
         renderer.use {
             player.drawDebug(renderer)
 
-            obstacles.forEach { it.drawDebug(renderer)}
+            obstacles.forEach { it.drawDebug(renderer) }
         }
 
         renderUi()
@@ -106,7 +112,7 @@ class GameScreen : Screen {
             val scoreText = "SCORE: " + displayScore
             layout.setText(uiFont, scoreText)
             uiFont.draw(batch, layout, GameConfig.HUD_WIDTH - layout.width - padding,
-                        GameConfig.HUD_HEIGHT - layout.height)
+                    GameConfig.HUD_HEIGHT - layout.height)
         }
     }
 
@@ -120,15 +126,15 @@ class GameScreen : Screen {
         updateScore(delta)
         updateDisplayScore(delta)
 
-        if(isPlayerCollidingWithObstacle()){
+        if (isPlayerCollidingWithObstacle()) {
             lives--
         }
     }
 
-    private fun updateScore(delta: Float){
+    private fun updateScore(delta: Float) {
         scoreTimer += delta
 
-        if(scoreTimer >= GameConfig.SCORE_MAX_TIME) {
+        if (scoreTimer >= GameConfig.SCORE_MAX_TIME) {
             scoreTimer = 0f
             score += MathUtils.random(1, 5)
         }
@@ -137,14 +143,14 @@ class GameScreen : Screen {
     private fun updateDisplayScore(delta: Float) {
 
         // condition tells us we have to update score in game UI
-        if (displayScore < score){
+        if (displayScore < score) {
             displayScore = Math.min(score, displayScore + (60 * delta).toInt())
         }
     }
 
-    private fun isPlayerCollidingWithObstacle() : Boolean {
+    private fun isPlayerCollidingWithObstacle(): Boolean {
         obstacles.forEach {
-            if(it.isCollidingWith(gameObject = player)){
+            if (it.isCollidingWith(gameObject = player)) {
                 return true
             }
         }
@@ -152,14 +158,14 @@ class GameScreen : Screen {
         return false
     }
 
-    private fun updateObstacles(){
+    private fun updateObstacles() {
         obstacles.forEach { it.update() } // same as writing obstacle -> obstacle.update()
     }
 
     private fun createNewObstacle(delta: Float) {
         obstacleTimer += delta
 
-        if(obstacleTimer >= GameConfig.OBSTACLE_SPAWN_TIME){
+        if (obstacleTimer >= GameConfig.OBSTACLE_SPAWN_TIME) {
             obstacleTimer = 0f // reset timer
 
             // spawn obstacle at random x position
