@@ -1,11 +1,16 @@
 package com.obstacleavoid.game.screen
 
+import com.badlogic.gdx.Game
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.BitmapFont
+import com.badlogic.gdx.graphics.g2d.GlyphLayout
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.obstacleavoid.game.assets.AssetPaths
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
@@ -13,32 +18,42 @@ import com.obstacleavoid.game.util.GdxArray
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
+import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
 
 class GameScreen : Screen {
 
     private lateinit var camera: OrthographicCamera
     private lateinit var viewport: Viewport
+    private lateinit var uiCamera : OrthographicCamera
+    private lateinit var uiViewport: Viewport
     private lateinit var renderer: ShapeRenderer
     private lateinit var player: Player
     private lateinit var debugCameraController: DebugCameraController
+    private lateinit var batch : SpriteBatch
+    private lateinit var uiFont : BitmapFont
 
     private var obstacleTimer = 0f
-    private var alive = true
+    private var lives = GameConfig.LIVES_START
 
     private val obstacles = GdxArray<Obstacle>()
-
-    override fun hide() {
-        dispose()
-    }
+    private val layout = GlyphLayout()
 
     override fun show() {
         camera = OrthographicCamera()
         viewport = FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera)
+
+        uiCamera = OrthographicCamera()
+        uiViewport = FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, uiCamera)
+
         renderer = ShapeRenderer()
 
         debugCameraController = DebugCameraController()
         debugCameraController.setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y)
+
+        // instantiate font
+        batch = SpriteBatch()
+        uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
 
         // create player
         player = Player()
@@ -56,9 +71,7 @@ class GameScreen : Screen {
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)
 
-        if(alive) {
-         update(delta)
-        }
+        update(delta)
 
         clearScreen()
         renderer.projectionMatrix = camera.combined
@@ -69,7 +82,20 @@ class GameScreen : Screen {
             obstacles.forEach { it.drawDebug(renderer)}
         }
 
+        renderUi()
+
         viewport.drawGrid(renderer)
+    }
+
+    private fun renderUi() {
+        val livesText = "LIVES: $lives"
+        layout.setText(uiFont, livesText)
+
+        batch.projectionMatrix = uiCamera.combined
+
+        batch.use {
+            uiFont.draw(batch, layout, 20f, GameConfig.HUD_HEIGHT - layout.height)
+        }
     }
 
     private fun update(delta: Float) {
@@ -81,7 +107,7 @@ class GameScreen : Screen {
         createNewObstacle(delta)
 
         if(isPlayerCollidingWithObstacle()){
-            alive = false
+            lives--
         }
     }
 
@@ -139,10 +165,16 @@ class GameScreen : Screen {
 
     override fun resize(width: Int, height: Int) {
         viewport.update(width, height, true)
+        uiViewport.update(width, height, true)
     }
 
     override fun dispose() {
         renderer.dispose()
+        batch.dispose()
+        uiFont.dispose()
     }
 
+    override fun hide() {
+        dispose()
+    }
 }
