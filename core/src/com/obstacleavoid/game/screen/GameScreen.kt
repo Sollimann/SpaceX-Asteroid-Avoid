@@ -34,7 +34,10 @@ class GameScreen : Screen {
     private lateinit var uiFont : BitmapFont
 
     private var obstacleTimer = 0f
+    private var scoreTimer = 0f
+    private var score = 0
     private var lives = GameConfig.LIVES_START
+    private val padding = 20f
 
     private val obstacles = GdxArray<Obstacle>()
     private val layout = GlyphLayout()
@@ -88,13 +91,21 @@ class GameScreen : Screen {
     }
 
     private fun renderUi() {
-        val livesText = "LIVES: $lives"
-        layout.setText(uiFont, livesText)
 
         batch.projectionMatrix = uiCamera.combined
 
         batch.use {
+
+            // draw lives
+            val livesText = "LIVES: $lives"
+            layout.setText(uiFont, livesText)
             uiFont.draw(batch, layout, 20f, GameConfig.HUD_HEIGHT - layout.height)
+
+            // draw score
+            val scoreText = "SCORE: " + score
+            layout.setText(uiFont, scoreText)
+            uiFont.draw(batch, layout, GameConfig.HUD_WIDTH - layout.width - padding,
+                        GameConfig.HUD_HEIGHT - layout.height)
         }
     }
 
@@ -105,9 +116,19 @@ class GameScreen : Screen {
 
         updateObstacles()
         createNewObstacle(delta)
+        updateScore(delta)
 
         if(isPlayerCollidingWithObstacle()){
             lives--
+        }
+    }
+
+    private fun updateScore(delta: Float){
+        scoreTimer += delta
+
+        if(scoreTimer >= GameConfig.SCORE_MAX_TIME) {
+            scoreTimer = 0f
+            score += MathUtils.random(1, 5)
         }
     }
 
