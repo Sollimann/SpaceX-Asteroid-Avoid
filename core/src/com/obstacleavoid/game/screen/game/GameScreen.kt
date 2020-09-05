@@ -23,12 +23,12 @@ class GameScreen : Screen {
     /** Called when the {@link Application} is paused, usually when it's not active or visible on-screen. An Application is also
      * paused before it is destroyed. */
     override fun pause() {
-        TODO("Not yet implemented")
+
     }
 
     /** Called when the {@link Application} is resumed from a paused state, usually when it regains focus. */
     override fun resume() {
-        TODO("Not yet implemented")
+
     }
 
     /** Called when the {@link Application} is resized. This can happen at any point during a non-paused state but will never happen
