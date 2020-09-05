@@ -10,8 +10,8 @@ class Obstacle : GameObjectBase() {
         private const val BOUNDS_RADIUS = 0.3f
     }
 
-    // private properties
-    private var ySpeed = 0.1f
+    var hit = false
+    var ySpeed = 0.1f
 
     // public functions
     fun update() {
@@ -19,8 +19,6 @@ class Obstacle : GameObjectBase() {
     }
 
     override val bounds: Circle = Circle(x,y, BOUNDS_RADIUS)
-
-    var hit = false
 
     override fun isCollidingWith(gameObject: GameObjectBase): Boolean {
         val overlaps = super.isCollidingWith(gameObject)

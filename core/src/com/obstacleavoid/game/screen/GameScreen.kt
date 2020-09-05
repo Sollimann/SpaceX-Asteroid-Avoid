@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.assets.AssetPaths
+import com.obstacleavoid.game.config.DifficultyLevel
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
@@ -38,8 +39,9 @@ class GameScreen : Screen {
     private var score = 0
     private var displayScore = 0
     private var lives = GameConfig.LIVES_START
-    private val padding = 20f
+    private var difficultyLevel  = DifficultyLevel.MEDIUM // enum setter
 
+    private val padding = 20f
     private val obstacles = GdxArray<Obstacle>()
     private val layout = GlyphLayout()
 
@@ -172,6 +174,9 @@ class GameScreen : Screen {
             val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH)
             val obstacle = Obstacle()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
+
+            // set the obstacle speed
+            obstacle.ySpeed = difficultyLevel.obstacleSpeed // enum getter
 
             // add to array
             obstacles.add(obstacle)
