@@ -36,6 +36,7 @@ class GameScreen : Screen {
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
     private var score = 0
+    private var displayScore = 0
     private var lives = GameConfig.LIVES_START
     private val padding = 20f
 
@@ -102,7 +103,7 @@ class GameScreen : Screen {
             uiFont.draw(batch, layout, 20f, GameConfig.HUD_HEIGHT - layout.height)
 
             // draw score
-            val scoreText = "SCORE: " + score
+            val scoreText = "SCORE: " + displayScore
             layout.setText(uiFont, scoreText)
             uiFont.draw(batch, layout, GameConfig.HUD_WIDTH - layout.width - padding,
                         GameConfig.HUD_HEIGHT - layout.height)
@@ -117,6 +118,7 @@ class GameScreen : Screen {
         updateObstacles()
         createNewObstacle(delta)
         updateScore(delta)
+        updateDisplayScore(delta)
 
         if(isPlayerCollidingWithObstacle()){
             lives--
@@ -129,6 +131,14 @@ class GameScreen : Screen {
         if(scoreTimer >= GameConfig.SCORE_MAX_TIME) {
             scoreTimer = 0f
             score += MathUtils.random(1, 5)
+        }
+    }
+
+    private fun updateDisplayScore(delta: Float) {
+
+        // condition tells us we have to update score in game UI
+        if (displayScore < score){
+            displayScore = Math.min(score, displayScore + (60 * delta).toInt())
         }
     }
 
