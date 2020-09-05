@@ -21,7 +21,7 @@ import com.obstacleavoid.game.util.drawGrid
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
 
-@Deprecated("Use GameScreen", ReplaceWith("GameScreen"))
+@Deprecated("Use GameScreen", ReplaceWith("GameScreen"), DeprecationLevel.WARNING)
 class GameScreenOld : Screen {
 
     // game renderer properties

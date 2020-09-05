@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.obstacleavoid.game.screen.game.GameScreen
-import com.obstacleavoid.game.screen.game.GameScreenOld
 
 class ObstacleAvoidGame : Game() {
     var batch: SpriteBatch? = null
