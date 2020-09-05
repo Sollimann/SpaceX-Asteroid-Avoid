@@ -31,3 +31,9 @@ In edit configuration, choose working directory:
 ###### 5. Choose JRE version
 
 `Java version 1.8`
+
+###### 5. Run Game
+
+`shift + f10`
+
+###### 6. Enjoy!
