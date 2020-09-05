@@ -1,6 +1,5 @@
-package com.obstacleavoid.game.screen
+package com.obstacleavoid.game.screen.game
 
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -22,8 +21,10 @@ import com.obstacleavoid.game.util.drawGrid
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
 
-class GameScreen : Screen {
+@Deprecated("Use GameScreen", ReplaceWith("GameScreen"))
+class GameScreenOld : Screen {
 
+    // game renderer properties
     private lateinit var camera: OrthographicCamera
     private lateinit var viewport: Viewport
     private lateinit var uiCamera: OrthographicCamera
@@ -34,6 +35,7 @@ class GameScreen : Screen {
     private lateinit var batch: SpriteBatch
     private lateinit var uiFont: BitmapFont
 
+    // game controller/logic properties
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
     private var score = 0
@@ -103,7 +105,15 @@ class GameScreen : Screen {
 
         batch.projectionMatrix = uiCamera.combined
 
-        batch.use {
+        batch.use {        /*
+        if(player.x < Player.HALF_SIZE){
+            player.x = Player.BOUNDS_RADIUS
+        }
+
+        if(player.x > GameConfig.WORLD_WIDTH - Player.HALF_SIZE){
+            player.x = GameConfig.WORLD_WIDTH - Player.HALF_SIZE
+        }
+         */
 
             // draw lives
             val livesText = "LIVES: $lives"
