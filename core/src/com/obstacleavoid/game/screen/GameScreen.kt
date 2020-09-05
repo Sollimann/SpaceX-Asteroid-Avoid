@@ -150,7 +150,7 @@ class GameScreen : Screen {
 
     private fun isPlayerCollidingWithObstacle(): Boolean {
         obstacles.forEach {
-            if (it.isCollidingWith(gameObject = player)) {
+            if (!it.hit && it.isCollidingWith(gameObject = player)) {
                 return true
             }
         }

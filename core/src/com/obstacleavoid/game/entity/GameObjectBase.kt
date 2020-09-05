@@ -27,7 +27,7 @@ abstract class GameObjectBase {
 
     fun drawDebug(renderer: ShapeRenderer) = renderer.circle(bounds.x, bounds.y, bounds.radius, 30)
 
-    fun isCollidingWith(gameObject: GameObjectBase) = Intersector.overlaps(gameObject.bounds, bounds)
+    open fun isCollidingWith(gameObject: GameObjectBase) = Intersector.overlaps(gameObject.bounds, bounds)
 
     // private functions
     private fun updateBounds() = bounds.setPosition(x,y)

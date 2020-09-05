@@ -19,4 +19,12 @@ class Obstacle : GameObjectBase() {
     }
 
     override val bounds: Circle = Circle(x,y, BOUNDS_RADIUS)
+
+    var hit = false
+
+    override fun isCollidingWith(gameObject: GameObjectBase): Boolean {
+        val overlaps = super.isCollidingWith(gameObject)
+        hit = overlaps
+        return overlaps
+    }
 }
