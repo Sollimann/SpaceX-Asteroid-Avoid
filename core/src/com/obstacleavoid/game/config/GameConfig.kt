@@ -16,4 +16,6 @@ object GameConfig {
 
     const val OBSTACLE_SPAWN_TIME = 0.35f
     const val LIVES_START = 3
+
+    const val SCORE_MAX_TIME = 1.25f
 }
