@@ -6,6 +6,8 @@
 ![ViewCount](https://views.whatilearened.today/views/github/Sollimann/obstacle-avoidance-game.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/graphs/commit-activity)
+![](astroid-avoid.gif)
+
 ## Setup in IntelliJ
 
 ###### 1. Open build.gradle
