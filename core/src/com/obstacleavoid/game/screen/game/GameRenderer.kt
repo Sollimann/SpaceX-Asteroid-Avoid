@@ -1,5 +1,6 @@
 package com.obstacleavoid.game.screen.game
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
@@ -7,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
@@ -18,11 +21,17 @@ import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
+import com.obstacleavoid.game.util.logger
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
 
 class GameRenderer(private val controller: GameController) : Disposable {
 
+    companion object {
+        @JvmStatic
+        private val log = logger<GameRenderer>()
+    }
+    
     // properties
     private val camera = OrthographicCamera()
     private val viewport: Viewport = FitViewport(GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT, camera)
@@ -49,6 +58,19 @@ class GameRenderer(private val controller: GameController) : Disposable {
         debugCameraController.applyTo(camera)
 
         clearScreen()
+
+        // android touch compatibility
+        if(Gdx.input.isTouched && !controller.gameOver) {
+            val screenTouch = Vector2(Gdx.input.x.toFloat(), Gdx.input.y.toFloat())
+            val worldTouch = viewport.unproject(Vector2(screenTouch))
+
+            log.debug("screenTouch= $screenTouch")
+            log.debug("worldTouch= $worldTouch")
+
+            val player = controller.player
+            worldTouch.x = MathUtils.clamp(worldTouch.x, 0f, GameConfig.WORLD_WIDTH - Player.SIZE)
+            player.x = worldTouch.x
+        }
 
         renderGamePlay()
         renderUi()
