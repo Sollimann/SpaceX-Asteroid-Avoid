@@ -2,6 +2,7 @@ package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -12,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.assets.AssetPaths
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
+import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
@@ -27,12 +29,17 @@ class GameRenderer(private val controller: GameController) : Disposable {
     private val uiViewport = FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, uiCamera)
     private val renderer = ShapeRenderer()
     private val batch = SpriteBatch()
-    private val uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
     private val padding = 20f
     private val layout = GlyphLayout()
     private val debugCameraController = DebugCameraController().apply {
         setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y)
     }
+
+    // assets
+    private val uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
+    private val playerTexture = Texture(AssetPaths.PLAYER_TEXTURE.toInternalFile())
+    private val obstacleTexture = Texture(AssetPaths.OBSTACLE_TEXTURE.toInternalFile())
+    private val backgroundTexture = Texture(AssetPaths.BACKGROUND_TEXTURE.toInternalFile())
 
     // public functions
     fun render() {
@@ -41,10 +48,22 @@ class GameRenderer(private val controller: GameController) : Disposable {
         debugCameraController.applyTo(camera)
 
         clearScreen()
+
+        renderGamePlay()
         renderDebug()
         renderUi()
 
         viewport.drawGrid(renderer)
+    }
+
+    private fun renderGamePlay() {
+        viewport.apply()
+        batch.projectionMatrix = camera.combined
+
+        batch.use {
+            val player = controller.player
+            batch.draw(playerTexture, player.x, player.y, Player.SIZE, Player.SIZE)
+        }
     }
 
     private fun renderDebug() {
