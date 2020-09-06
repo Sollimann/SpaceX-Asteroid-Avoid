@@ -15,7 +15,7 @@ class GameController {
     private val startPlayerY = 1f
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
-    private var difficultyLevel = DifficultyLevel.MEDIUM // enum setter
+    private var difficultyLevel = DifficultyLevel.EASY // enum setter
 
 
     // public properties
@@ -121,7 +121,7 @@ class GameController {
             obstacleTimer = 0f // reset timer
 
             // spawn obstacle at random x position
-            val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH)
+            val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
             val obstacle = Obstacle()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
 

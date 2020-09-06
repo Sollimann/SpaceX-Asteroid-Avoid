@@ -1,5 +1,6 @@
 package com.obstacleavoid.game.screen.game
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
@@ -10,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.assets.AssetPaths
 import com.obstacleavoid.game.config.GameConfig
+import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
@@ -49,6 +51,18 @@ class GameRenderer(private val controller: GameController) : Disposable {
         // first we have to apply the world viewport
         viewport.apply()
         renderer.projectionMatrix = camera.combined
+
+        // temp code
+//        var oldColor = renderer.color.cpy()
+//        renderer.color = Color.BLUE
+//
+//        renderer.use {
+//            renderer.line(Obstacle.HALF_SIZE, 0f, Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+//            renderer.line(GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, 0f, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+//        }
+//
+//        renderer.color = oldColor
+        // temp code
 
         renderer.use {
             controller.player.drawDebug(renderer)
