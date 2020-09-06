@@ -1,3 +1,4 @@
+
 # obstacle-avoidance-game
 [![Build Status](https://github.com/Sollimann/obstacle-avoidance-game/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/obstacle-avoidance-game/actions)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/obstacle-avoidance-game.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/pulls)
@@ -6,7 +7,10 @@
 ![ViewCount](https://views.whatilearened.today/views/github/Sollimann/obstacle-avoidance-game.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/graphs/commit-activity)
-![](astroid-avoid.gif)
+
+<p align="center">
+  <img src="https://github.com/Sollimann/obstacle-avoidance-game/blob/master/astroid-avoid.gif">
+</p>
 
 ## Setup in IntelliJ
 
