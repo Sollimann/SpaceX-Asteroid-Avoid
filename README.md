@@ -21,7 +21,7 @@ Configure the main class as:
 
 In edit configuration, choose working directory:
 
-`/*your path*/libgdx/android/assets`
+`/*your path*/obstacle-avoid-game/android/assets`
 
 ###### 4. Choose classpath of module
 
