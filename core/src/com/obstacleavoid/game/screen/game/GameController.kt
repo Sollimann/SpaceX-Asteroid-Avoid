@@ -13,7 +13,7 @@ class GameController {
 
     // private properties
     private val startPlayerX = GameConfig.WORLD_WIDTH / 2f
-    private val startPlayerY = 1f
+    private val startPlayerY = 1f - Player.HALF_SIZE
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
     private var difficultyLevel = DifficultyLevel.EASY // enum setter
@@ -47,6 +47,7 @@ class GameController {
 
         // position player
         player.setPosition(startPlayerX, startPlayerY)
+        player.setSize(Player.SIZE, Player.SIZE)
 
     }
 
@@ -126,9 +127,10 @@ class GameController {
             obstacleTimer = 0f // reset timer
 
             // spawn obstacle at random x position
-            val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
+            val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH - Obstacle.SIZE)
             val obstacle = obstaclePool.obtain()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
+            obstacle.setSize(Obstacle.SIZE, Obstacle.SIZE)
 
             // set the obstacle speed
             obstacle.ySpeed = difficultyLevel.obstacleSpeed // enum getter
@@ -139,6 +141,6 @@ class GameController {
     }
 
     private fun blockPlayerFromLeavingWorldBounds() {
-        player.x = MathUtils.clamp(player.x, Player.HALF_SIZE, GameConfig.WORLD_WIDTH - Player.HALF_SIZE)
+        player.x = MathUtils.clamp(player.x, 0f, GameConfig.WORLD_WIDTH - Player.SIZE)
     }
 }

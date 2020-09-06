@@ -2,6 +2,7 @@ package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -12,6 +13,8 @@ import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.assets.AssetPaths
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
+import com.obstacleavoid.game.entity.Player
+import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
@@ -27,12 +30,17 @@ class GameRenderer(private val controller: GameController) : Disposable {
     private val uiViewport = FitViewport(GameConfig.HUD_WIDTH, GameConfig.HUD_HEIGHT, uiCamera)
     private val renderer = ShapeRenderer()
     private val batch = SpriteBatch()
-    private val uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
     private val padding = 20f
     private val layout = GlyphLayout()
     private val debugCameraController = DebugCameraController().apply {
         setStartPosition(GameConfig.WORLD_CENTER_X, GameConfig.WORLD_CENTER_Y)
     }
+
+    // assets
+    private val uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
+    private val playerTexture = Texture(AssetPaths.PLAYER_TEXTURE.toInternalFile())
+    private val obstacleTexture = Texture(AssetPaths.OBSTACLE_TEXTURE.toInternalFile())
+    private val backgroundTexture = Texture(AssetPaths.BACKGROUND_TEXTURE.toInternalFile())
 
     // public functions
     fun render() {
@@ -41,10 +49,28 @@ class GameRenderer(private val controller: GameController) : Disposable {
         debugCameraController.applyTo(camera)
 
         clearScreen()
-        renderDebug()
+
+        renderGamePlay()
         renderUi()
 
-        viewport.drawGrid(renderer)
+        //renderDebug() // this is for showing the actual object boundaries
+        //viewport.drawGrid(renderer) // shows grid in background
+    }
+
+    private fun renderGamePlay() {
+        viewport.apply()
+        batch.projectionMatrix = camera.combined
+
+        batch.use {
+            batch.draw(backgroundTexture, 0f, 0f, GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT)
+
+            val player = controller.player
+            batch.draw(playerTexture, player.x, player.y, Player.SIZE, Player.SIZE)
+
+            controller.obstacles.forEach {
+                batch.draw(obstacleTexture, it.x, it.y, Obstacle.SIZE, Obstacle.SIZE)
+            }
+        }
     }
 
     private fun renderDebug() {
@@ -52,21 +78,28 @@ class GameRenderer(private val controller: GameController) : Disposable {
         viewport.apply()
         renderer.projectionMatrix = camera.combined
 
-        // temp code
-//        var oldColor = renderer.color.cpy()
-//        renderer.color = Color.BLUE
-//
-//        renderer.use {
-//            renderer.line(Obstacle.HALF_SIZE, 0f, Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
-//            renderer.line(GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, 0f, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
-//        }
-//
-//        renderer.color = oldColor
-        // temp code
+
+        val oldColor = renderer.color.cpy()
+        renderer.color = Color.BLUE
 
         renderer.use {
-            controller.player.drawDebug(renderer)
-            controller.obstacles.forEach { it.drawDebug(renderer) }
+            renderer.line(Obstacle.HALF_SIZE, 0f, Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+            renderer.line(GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, 0f, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+        }
+
+        renderer.color = oldColor
+
+        renderer.use {
+            // draw player
+            val playerBounds = controller.player.bounds
+            renderer.x(playerBounds.x, playerBounds.y, 0.1f)
+            renderer.circle(playerBounds)
+
+            // draw obstacles
+            controller.obstacles.forEach {
+                renderer.x(it.bounds.x, it.bounds.y, 0.1f)
+                renderer.circle(it.bounds)
+            }
         }
     }
 

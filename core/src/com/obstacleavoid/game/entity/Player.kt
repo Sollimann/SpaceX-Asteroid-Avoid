@@ -8,13 +8,13 @@ class Player : GameObjectBase() {
 
     companion object{
         // constants
-        private const val BOUNDS_RADIUS = 0.4f // world units
-        private const val MAX_X_SPEED = 0.25f // world units
+        const val SIZE = 0.8f // world units
+        const val HALF_SIZE = SIZE / 2f // world units
 
-        const val HALF_SIZE = BOUNDS_RADIUS
+        private const val MAX_X_SPEED = 0.25f // world units
     }
 
-    override val bounds: Circle = Circle(x,y, BOUNDS_RADIUS)
+    override val bounds: Circle = Circle(x,y, HALF_SIZE)
 
     fun update() {
         var xSpeed = 0f

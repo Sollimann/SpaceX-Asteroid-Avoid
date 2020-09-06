@@ -91,9 +91,9 @@ class GameScreenOld : Screen {
         renderer.projectionMatrix = camera.combined
 
         renderer.use {
-            player.drawDebug(renderer)
+            //player.drawDebug(renderer)
 
-            obstacles.forEach { it.drawDebug(renderer) }
+            //obstacles.forEach { it.drawDebug(renderer) }
         }
 
         renderUi()
