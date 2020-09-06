@@ -1,5 +1,4 @@
 # obstacle-avoidance-game
-[![Build Status](https://github.com/Sollimann/obstacle-avoidance-game/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/obstacle-avoidance-game/actions)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/obstacle-avoidance-game.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/pulls)
 [![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/obstacle-avoidance-game/releases/)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/obstacle-avoidance-game/issues)
@@ -8,11 +7,6 @@
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/graphs/commit-activity)
 
 <p align="center">
-  <b>Some Links:</b><br>
-  <a href="#">Link 1</a> |
-  <a href="#">Link 2</a> |
-  <a href="#">Link 3</a>
-  <br><br>
   <img src="https://github.com/Sollimann/obstacle-avoidance-game/blob/master/astroid-avoid.gif">
 </p>
 
