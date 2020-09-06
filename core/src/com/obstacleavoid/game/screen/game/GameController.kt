@@ -1,6 +1,7 @@
 package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.utils.Pools
 import com.obstacleavoid.game.config.DifficultyLevel
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
@@ -19,11 +20,11 @@ class GameController {
 
 
     // public properties
-    val gameOver
+    val gameOver = false
         // boolean game over property using a getter
         // everytime we cal the gameOver val, it will execute
         // and return the result of lives <= 0
-        get() = lives <= 0
+        //get() = lives <= 0
 
     val obstacles = GdxArray<Obstacle>()
 
@@ -34,6 +35,9 @@ class GameController {
     var score = 0
         private set
     var displayScore = 0
+
+    private val obstaclePool = Pools.get(Obstacle::class.java, 20)
+
 
     // init
     init {
@@ -95,6 +99,7 @@ class GameController {
             val minObstacleY = -Obstacle.SIZE
 
             if (first.y < minObstacleY) {
+                obstaclePool.free(first)
                 obstacles.removeValue(first, true)
             }
         }
@@ -122,7 +127,7 @@ class GameController {
 
             // spawn obstacle at random x position
             val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
-            val obstacle = Obstacle()
+            val obstacle = obstaclePool.obtain()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
 
             // set the obstacle speed

@@ -1,8 +1,9 @@
 package com.obstacleavoid.game.entity
 
 import com.badlogic.gdx.math.Circle
+import com.badlogic.gdx.utils.Pool
 
-class Obstacle : GameObjectBase() {
+class Obstacle : GameObjectBase(), Pool.Poolable {
     companion object {
 
         // constants
@@ -24,5 +25,12 @@ class Obstacle : GameObjectBase() {
         val overlaps = super.isCollidingWith(gameObject)
         hit = overlaps
         return overlaps
+    }
+
+    override fun reset() {
+        x = 0f
+        y = 0f
+        hit = false
+        ySpeed = 0.1f
     }
 }
