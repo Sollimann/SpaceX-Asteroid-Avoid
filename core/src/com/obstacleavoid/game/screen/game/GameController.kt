@@ -6,6 +6,7 @@ import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.GdxArray
+import com.obstacleavoid.game.util.isNotEmpty
 
 class GameController {
 
@@ -89,7 +90,7 @@ class GameController {
 
     private fun removePassedObstacles() {
 
-        if (!obstacles.isEmpty) {
+        if (obstacles.isNotEmpty()) {
             val first = obstacles.first()
             val minObstacleY = -Obstacle.SIZE
 
