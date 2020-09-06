@@ -51,10 +51,10 @@ class GameRenderer(private val controller: GameController) : Disposable {
         clearScreen()
 
         renderGamePlay()
-        //renderDebug() // this is for showing the actual object boundaries
         renderUi()
 
-        viewport.drawGrid(renderer)
+        //renderDebug() // this is for showing the actual object boundaries
+        //viewport.drawGrid(renderer) // shows grid in background
     }
 
     private fun renderGamePlay() {
@@ -77,6 +77,7 @@ class GameRenderer(private val controller: GameController) : Disposable {
         // first we have to apply the world viewport
         viewport.apply()
         renderer.projectionMatrix = camera.combined
+
 
         val oldColor = renderer.color.cpy()
         renderer.color = Color.BLUE
