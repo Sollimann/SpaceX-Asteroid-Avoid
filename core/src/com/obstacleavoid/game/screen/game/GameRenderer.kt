@@ -51,7 +51,7 @@ class GameRenderer(private val controller: GameController) : Disposable {
         clearScreen()
 
         renderGamePlay()
-        renderDebug()
+        //renderDebug() // this is for showing the actual object boundaries
         renderUi()
 
         viewport.drawGrid(renderer)
@@ -78,27 +78,25 @@ class GameRenderer(private val controller: GameController) : Disposable {
         viewport.apply()
         renderer.projectionMatrix = camera.combined
 
-        // temp code
-//        var oldColor = renderer.color.cpy()
-//        renderer.color = Color.BLUE
-//
-//        renderer.use {
-//            renderer.line(Obstacle.HALF_SIZE, 0f, Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
-//            renderer.line(GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, 0f, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
-//        }
-//
-//        renderer.color = oldColor
-        // temp code
+        val oldColor = renderer.color.cpy()
+        renderer.color = Color.BLUE
+
+        renderer.use {
+            renderer.line(Obstacle.HALF_SIZE, 0f, Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+            renderer.line(GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, 0f, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE, GameConfig.WORLD_HEIGHT)
+        }
+
+        renderer.color = oldColor
 
         renderer.use {
             // draw player
-            val player = controller.player
-            renderer.x(player.x, player.y, 0.1f)
-            renderer.circle(player.bounds)
+            val playerBounds = controller.player.bounds
+            renderer.x(playerBounds.x, playerBounds.y, 0.1f)
+            renderer.circle(playerBounds)
 
             // draw obstacles
             controller.obstacles.forEach {
-                renderer.x(it.x, it.y, 0.1f)
+                renderer.x(it.bounds.x, it.bounds.y, 0.1f)
                 renderer.circle(it.bounds)
             }
         }
