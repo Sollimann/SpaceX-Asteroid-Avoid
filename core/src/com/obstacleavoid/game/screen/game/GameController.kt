@@ -47,6 +47,7 @@ class GameController {
 
         // position player
         player.setPosition(startPlayerX, startPlayerY)
+        player.setSize(Player.SIZE, Player.SIZE)
 
     }
 
@@ -129,6 +130,7 @@ class GameController {
             val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
             val obstacle = obstaclePool.obtain()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
+            obstacle.setSize(Obstacle.SIZE, Obstacle.SIZE)
 
             // set the obstacle speed
             obstacle.ySpeed = difficultyLevel.obstacleSpeed // enum getter

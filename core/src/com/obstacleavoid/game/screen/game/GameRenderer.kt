@@ -14,6 +14,7 @@ import com.obstacleavoid.game.assets.AssetPaths
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
+import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
@@ -90,8 +91,16 @@ class GameRenderer(private val controller: GameController) : Disposable {
         // temp code
 
         renderer.use {
-            controller.player.drawDebug(renderer)
-            controller.obstacles.forEach { it.drawDebug(renderer) }
+            // draw player
+            val player = controller.player
+            renderer.x(player.x, player.y, 0.1f)
+            renderer.circle(player.bounds)
+
+            // draw obstacles
+            controller.obstacles.forEach {
+                renderer.x(it.x, it.y, 0.1f)
+                renderer.circle(it.bounds)
+            }
         }
     }
 

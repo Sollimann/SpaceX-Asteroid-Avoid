@@ -30,6 +30,8 @@ class Obstacle : GameObjectBase(), Pool.Poolable {
     override fun reset() {
         x = 0f
         y = 0f
+        width = 1f
+        height = 1f
         hit = false
         ySpeed = 0.1f
     }

@@ -18,6 +18,18 @@ abstract class GameObjectBase {
             updateBounds()
         }
 
+    var width: Float = 1f
+        set(value) {
+            field = value
+            updateBounds()
+        }
+
+    var height: Float = 1f
+        set(value) {
+            field = value
+            updateBounds()
+        }
+
     abstract val bounds : Circle
 
     // public functions
@@ -26,13 +38,13 @@ abstract class GameObjectBase {
         this.y = y
     }
 
-    fun drawDebug(renderer: ShapeRenderer){
-        renderer.x(x,y,0.1f)
-        renderer.circle(bounds)
+    fun setSize(width: Float, height: Float) {
+        this.width = width
+        this.height = height
     }
 
     open fun isCollidingWith(gameObject: GameObjectBase) = Intersector.overlaps(gameObject.bounds, bounds)
 
     // private functions
-    private fun updateBounds() = bounds.setPosition(x,y)
+    private fun updateBounds() = bounds.setPosition(x + width / 2f,y + height / 2f)
 }
