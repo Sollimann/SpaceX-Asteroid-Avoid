@@ -58,8 +58,9 @@ class GameController {
         player.update()
         blockPlayerFromLeavingWorldBounds()
 
-        updateObstacles()
         createNewObstacle(delta)
+        updateObstacles()
+        removePassedObstacles()
         updateScore(delta)
         updateDisplayScore(delta)
 
@@ -83,6 +84,18 @@ class GameController {
         // condition tells us we have to update score in game UI
         if (displayScore < score) {
             displayScore = Math.min(score, displayScore + (60 * delta).toInt())
+        }
+    }
+
+    private fun removePassedObstacles() {
+
+        if (!obstacles.isEmpty) {
+            val first = obstacles.first()
+            val minObstacleY = -Obstacle.SIZE
+
+            if (first.y < minObstacleY) {
+                obstacles.removeValue(first, true)
+            }
         }
     }
 

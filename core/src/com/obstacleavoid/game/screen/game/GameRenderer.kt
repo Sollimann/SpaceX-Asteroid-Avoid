@@ -33,7 +33,7 @@ class GameRenderer(private val controller: GameController) : Disposable {
     }
 
     // public functions
-    fun render(delta: Float) {
+    fun render() {
         // handle debug camera controller
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)

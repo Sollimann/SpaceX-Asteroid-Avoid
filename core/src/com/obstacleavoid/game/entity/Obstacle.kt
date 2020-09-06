@@ -8,6 +8,7 @@ class Obstacle : GameObjectBase() {
 
         // constants
         private const val BOUNDS_RADIUS = 0.3f
+        const val SIZE = BOUNDS_RADIUS * 2
     }
 
     var hit = false
