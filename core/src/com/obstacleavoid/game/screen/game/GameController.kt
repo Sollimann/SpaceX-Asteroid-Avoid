@@ -13,7 +13,7 @@ class GameController {
 
     // private properties
     private val startPlayerX = GameConfig.WORLD_WIDTH / 2f
-    private val startPlayerY = 1f
+    private val startPlayerY = 1f - Player.HALF_SIZE
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
     private var difficultyLevel = DifficultyLevel.EASY // enum setter
