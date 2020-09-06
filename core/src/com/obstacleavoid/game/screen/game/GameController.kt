@@ -141,6 +141,6 @@ class GameController {
     }
 
     private fun blockPlayerFromLeavingWorldBounds() {
-        player.x = MathUtils.clamp(player.x, Player.HALF_SIZE, GameConfig.WORLD_WIDTH - Player.HALF_SIZE)
+        player.x = MathUtils.clamp(player.x, 0f, GameConfig.WORLD_WIDTH - Player.SIZE)
     }
 }
