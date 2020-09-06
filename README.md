@@ -1,5 +1,5 @@
 # obstacle-avoidance-game
-[![Build Status](https://github.com/Sollimann/obstacle-avoidance-game/workflows/Gradle-CI/badge.svg)](https://github.com/Sollimann/obstacle-avoidance-game/actions)
+[![Build Status](https://github.com/Sollimann/obstacle-avoidance-game/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/obstacle-avoidance-game/actions)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/obstacle-avoidance-game.svg)](https://GitHub.com/Sollimann/obstacle-avoidance-game/pulls)
 [![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/obstacle-avoidance-game/releases/)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/obstacle-avoidance-game/issues)
