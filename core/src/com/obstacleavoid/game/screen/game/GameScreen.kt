@@ -17,7 +17,7 @@ class GameScreen : Screen {
      * @param delta The time in seconds since the last render. */
     override fun render(delta: Float) {
         controller.update(delta)
-        renderer.render(delta)
+        renderer.render()
     }
 
     /** Called when the {@link Application} is paused, usually when it's not active or visible on-screen. An Application is also

@@ -1,11 +1,13 @@
 package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.math.MathUtils
+import com.badlogic.gdx.utils.Pools
 import com.obstacleavoid.game.config.DifficultyLevel
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.GdxArray
+import com.obstacleavoid.game.util.isNotEmpty
 
 class GameController {
 
@@ -14,15 +16,15 @@ class GameController {
     private val startPlayerY = 1f
     private var obstacleTimer = 0f
     private var scoreTimer = 0f
-    private var difficultyLevel = DifficultyLevel.MEDIUM // enum setter
+    private var difficultyLevel = DifficultyLevel.EASY // enum setter
 
 
     // public properties
-    val gameOver
+    val gameOver = false
         // boolean game over property using a getter
         // everytime we cal the gameOver val, it will execute
         // and return the result of lives <= 0
-        get() = lives <= 0
+        //get() = lives <= 0
 
     val obstacles = GdxArray<Obstacle>()
 
@@ -33,6 +35,9 @@ class GameController {
     var score = 0
         private set
     var displayScore = 0
+
+    private val obstaclePool = Pools.get(Obstacle::class.java, 20)
+
 
     // init
     init {
@@ -58,8 +63,9 @@ class GameController {
         player.update()
         blockPlayerFromLeavingWorldBounds()
 
-        updateObstacles()
         createNewObstacle(delta)
+        updateObstacles()
+        removePassedObstacles()
         updateScore(delta)
         updateDisplayScore(delta)
 
@@ -86,6 +92,19 @@ class GameController {
         }
     }
 
+    private fun removePassedObstacles() {
+
+        if (obstacles.isNotEmpty()) {
+            val first = obstacles.first()
+            val minObstacleY = -Obstacle.SIZE
+
+            if (first.y < minObstacleY) {
+                obstaclePool.free(first)
+                obstacles.removeValue(first, true)
+            }
+        }
+    }
+
     private fun isPlayerCollidingWithObstacle(): Boolean {
         obstacles.forEach {
             if (!it.hit && it.isCollidingWith(gameObject = player)) {
@@ -107,8 +126,8 @@ class GameController {
             obstacleTimer = 0f // reset timer
 
             // spawn obstacle at random x position
-            val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH)
-            val obstacle = Obstacle()
+            val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
+            val obstacle = obstaclePool.obtain()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
 
             // set the obstacle speed

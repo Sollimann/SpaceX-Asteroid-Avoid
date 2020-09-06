@@ -3,6 +3,7 @@ package com.obstacleavoid.game.entity
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Circle
 import com.badlogic.gdx.math.Intersector
+import com.obstacleavoid.game.util.circle
 
 abstract class GameObjectBase {
     // properties
@@ -25,7 +26,10 @@ abstract class GameObjectBase {
         this.y = y
     }
 
-    fun drawDebug(renderer: ShapeRenderer) = renderer.circle(bounds.x, bounds.y, bounds.radius, 30)
+    fun drawDebug(renderer: ShapeRenderer){
+        renderer.x(x,y,0.1f)
+        renderer.circle(bounds)
+    }
 
     open fun isCollidingWith(gameObject: GameObjectBase) = Intersector.overlaps(gameObject.bounds, bounds)
 
