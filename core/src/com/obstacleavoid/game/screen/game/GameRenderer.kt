@@ -39,20 +39,26 @@ class GameRenderer(private val controller: GameController) : Disposable {
         debugCameraController.applyTo(camera)
 
         clearScreen()
+        renderDebug()
+        renderUi()
+
+        viewport.drawGrid(renderer)
+    }
+
+    private fun renderDebug() {
+        // first we have to apply the world viewport
+        viewport.apply()
         renderer.projectionMatrix = camera.combined
 
         renderer.use {
             controller.player.drawDebug(renderer)
             controller.obstacles.forEach { it.drawDebug(renderer) }
         }
-
-        renderUi()
-
-        viewport.drawGrid(renderer)
     }
 
     private fun renderUi() {
-
+        // first we have to apply the UI viewport
+        uiViewport.apply()
         batch.projectionMatrix = uiCamera.combined
 
         batch.use {
@@ -71,7 +77,10 @@ class GameRenderer(private val controller: GameController) : Disposable {
     }
 
     fun resize(width: Int, height: Int) {
+        // the world viewport
         viewport.update(width, height, true)
+
+        // the UI viewport
         uiViewport.update(width, height, true)
     }
 
