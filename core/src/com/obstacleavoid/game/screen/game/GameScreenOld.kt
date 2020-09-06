@@ -130,7 +130,7 @@ class GameScreenOld : Screen {
 
     private fun update(delta: Float) {
         // update game world
-        player.update()
+        //player.update()
         blockPlayerFromLeavingWorldBounds()
 
         updateObstacles()

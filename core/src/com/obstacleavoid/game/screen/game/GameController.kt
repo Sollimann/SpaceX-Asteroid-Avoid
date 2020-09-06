@@ -1,5 +1,6 @@
 package com.obstacleavoid.game.screen.game
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.Pools
 import com.obstacleavoid.game.config.DifficultyLevel
@@ -7,9 +8,16 @@ import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.GdxArray
+import com.obstacleavoid.game.util.isKeyPressed
 import com.obstacleavoid.game.util.isNotEmpty
+import com.obstacleavoid.game.util.logger
 
 class GameController {
+
+    companion object {
+        @JvmStatic
+        private val log = logger<GameController>()
+    }
 
     // private properties
     private val startPlayerX = GameConfig.WORLD_WIDTH / 2f
@@ -20,11 +28,11 @@ class GameController {
 
 
     // public properties
-    val gameOver = false
+    val gameOver
         // boolean game over property using a getter
         // everytime we cal the gameOver val, it will execute
         // and return the result of lives <= 0
-        //get() = lives <= 0
+        get() = lives <= 0
 
     val obstacles = GdxArray<Obstacle>()
 
@@ -60,8 +68,16 @@ class GameController {
             return
         }
 
+        var xSpeed = 0f
+
+        when {
+            Input.Keys.RIGHT.isKeyPressed() -> xSpeed = Player.MAX_X_SPEED
+            Input.Keys.LEFT.isKeyPressed() -> xSpeed = -Player.MAX_X_SPEED
+        }
+
+        player.x += xSpeed
+
         // update game world
-        player.update()
         blockPlayerFromLeavingWorldBounds()
 
         createNewObstacle(delta)
@@ -71,11 +87,23 @@ class GameController {
         updateDisplayScore(delta)
 
         if (isPlayerCollidingWithObstacle()) {
+            log.debug("collision detected")
             lives--
+
+            when {
+                gameOver -> log.debug("Game Over!")
+                else -> restart()
+            }
         }
     }
 
     // private functions
+    private fun restart() {
+        obstaclePool.freeAll(obstacles)
+        obstacles.clear()
+        player.setPosition(startPlayerX, startPlayerY)
+    }
+
     private fun updateScore(delta: Float) {
         scoreTimer += delta
 
