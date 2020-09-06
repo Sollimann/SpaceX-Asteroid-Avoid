@@ -127,7 +127,7 @@ class GameController {
             obstacleTimer = 0f // reset timer
 
             // spawn obstacle at random x position
-            val obstacleX = MathUtils.random(Obstacle.HALF_SIZE, GameConfig.WORLD_WIDTH - Obstacle.HALF_SIZE)
+            val obstacleX = MathUtils.random(0f, GameConfig.WORLD_WIDTH - Obstacle.SIZE)
             val obstacle = obstaclePool.obtain()
             obstacle.setPosition(obstacleX, GameConfig.WORLD_HEIGHT)
             obstacle.setSize(Obstacle.SIZE, Obstacle.SIZE)
