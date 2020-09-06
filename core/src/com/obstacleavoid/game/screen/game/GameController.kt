@@ -1,5 +1,6 @@
 package com.obstacleavoid.game.screen.game
 
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.utils.Pools
 import com.obstacleavoid.game.config.DifficultyLevel
@@ -7,6 +8,7 @@ import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
 import com.obstacleavoid.game.util.GdxArray
+import com.obstacleavoid.game.util.isKeyPressed
 import com.obstacleavoid.game.util.isNotEmpty
 import com.obstacleavoid.game.util.logger
 
@@ -66,8 +68,16 @@ class GameController {
             return
         }
 
+        var xSpeed = 0f
+
+        when {
+            Input.Keys.RIGHT.isKeyPressed() -> xSpeed = Player.MAX_X_SPEED
+            Input.Keys.LEFT.isKeyPressed() -> xSpeed = -Player.MAX_X_SPEED
+        }
+
+        player.x += xSpeed
+
         // update game world
-        player.update()
         blockPlayerFromLeavingWorldBounds()
 
         createNewObstacle(delta)
