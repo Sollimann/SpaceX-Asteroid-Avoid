@@ -7,7 +7,7 @@ class Obstacle : GameObjectBase(), Pool.Poolable {
     companion object {
 
         // constants
-        const val SIZE = 0.6f
+        const val SIZE = 0.4f
         const val HALF_SIZE = SIZE / 2f
     }
 

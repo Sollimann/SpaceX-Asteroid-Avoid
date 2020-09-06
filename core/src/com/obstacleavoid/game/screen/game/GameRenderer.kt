@@ -61,8 +61,14 @@ class GameRenderer(private val controller: GameController) : Disposable {
         batch.projectionMatrix = camera.combined
 
         batch.use {
+            batch.draw(backgroundTexture, 0f, 0f, GameConfig.WORLD_WIDTH, GameConfig.WORLD_HEIGHT)
+
             val player = controller.player
             batch.draw(playerTexture, player.x, player.y, Player.SIZE, Player.SIZE)
+
+            controller.obstacles.forEach {
+                batch.draw(obstacleTexture, it.x, it.y, Obstacle.SIZE, Obstacle.SIZE)
+            }
         }
     }
 
