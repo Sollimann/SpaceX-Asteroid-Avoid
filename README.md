@@ -1,20 +1,20 @@
 
-# SpaceX Astroid Avoid Game
+# SpaceX Asteroid Avoid Game
 
 <p align="center">
-    <em>Maneuver the SpaceX Dragon capsule to avoid incoming astroids</em>
+    <em>Maneuver the SpaceX Dragon capsule to avoid incoming asteroids</em>
 </p>
 
-[![Build Status](https://github.com/Sollimann/SpaceX-Astroid-Avoid/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/SpaceX-Astroid-Avoid/actions)
-[![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/SpaceX-Astroid-Avoid.svg)](https://GitHub.com/Sollimann/SpaceX-Astroid-Avoid/pulls)
-[![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/SpaceX-Astroid-Avoid/releases/)
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/SpaceX-Astroid-Avoid/issues)
-![ViewCount](https://views.whatilearened.today/views/github/Sollimann/SpaceX-Astroid-Avoid.svg)
+[![Build Status](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/actions)
+[![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/SpaceX-Asteroid-Avoid.svg)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/pulls)
+[![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/releases/)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/issues)
+![ViewCount](https://views.whatilearened.today/views/github/Sollimann/SpaceX-Asteroid-Avoid.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/SpaceX-Astroid-Avoid/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/graphs/commit-activity)
 
 <p align="center">
-  <img src="https://github.com/Sollimann/SpaceX-Astroid-Avoid/blob/master/astroid-avoid.gif">
+  <img src="https://github.com/Sollimann/SpaceX-Asteroid-Avoid/blob/master/astroid-avoid.gif">
 </p>
 
 ## Setup in IntelliJ
