@@ -7,7 +7,7 @@
 
 [![Build Status](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/workflows/gradle-master-ci/badge.svg)](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/actions)
 [![GitHub pull-requests](https://img.shields.io/github/issues-pr/Sollimann/SpaceX-Asteroid-Avoid.svg)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/pulls)
-[![version](https://img.shields.io/badge/version-0.0.1-blue)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/releases/)
+[![version](https://img.shields.io/badge/version-1.0.0-blue)](https://GitHub.com/Sollimann/SpaceX-Asteroid-Avoid/releases/)
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/Sollimann/SpaceX-Asteroid-Avoid/issues)
 ![ViewCount](https://views.whatilearened.today/views/github/Sollimann/SpaceX-Asteroid-Avoid.svg)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
