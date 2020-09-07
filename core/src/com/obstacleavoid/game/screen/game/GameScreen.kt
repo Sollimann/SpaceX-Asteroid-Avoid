@@ -1,16 +1,36 @@
 package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.Screen
+import com.badlogic.gdx.assets.AssetDescriptor
+import com.obstacleavoid.game.ObstacleAvoidGame
+import com.obstacleavoid.game.assets.AssetDescriptors
+import com.obstacleavoid.game.util.logger
 
-class GameScreen : Screen {
+class GameScreen(val game : ObstacleAvoidGame) : Screen {
 
+    companion object {
+        @JvmStatic
+        private val log = logger<GameScreen>()
+    }
+
+    private val assetManager = game.assetManager
     private lateinit var controller : GameController
     private lateinit var renderer : GameRenderer
 
     /** Called when this screen becomes the current screen for a {@link Game}. */
     override fun show() {
+        assetManager.load(AssetDescriptors.FONT)
+        assetManager.load(AssetDescriptors.BACKGROUND)
+        assetManager.load(AssetDescriptors.OBSTACLE)
+        assetManager.load(AssetDescriptors.PLAYER)
+
+        // blocks until all resources/assets are loaded
+        assetManager.finishLoading()
+
+        log.debug("assetMananger diagnostics= ${assetManager.diagnostics}")
+
         controller = GameController()
-        renderer = GameRenderer(controller)
+        renderer = GameRenderer(assetManager, controller)
     }
 
     /** Called when the screen should render itself.
