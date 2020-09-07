@@ -25,6 +25,7 @@ import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
+import com.obstacleavoid.game.util.get
 import com.obstacleavoid.game.util.logger
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
@@ -54,9 +55,9 @@ class GameRenderer(private val assetManager: AssetManager,
     // assets
     private val uiFont = assetManager[AssetDescriptors.FONT]
     private val gameplayAtlas = assetManager[AssetDescriptors.GAMEPLAY]
-    private val playerTexture = gameplayAtlas.findRegion(RegionNames.PLAYER)
-    private val obstacleTexture = gameplayAtlas.findRegion(RegionNames.OBSTACLE)
-    private val backgroundTexture = gameplayAtlas.findRegion(RegionNames.BACKGROUND)
+    private val playerTexture = gameplayAtlas[RegionNames.PLAYER]
+    private val obstacleTexture = gameplayAtlas[RegionNames.OBSTACLE]
+    private val backgroundTexture = gameplayAtlas[RegionNames.BACKGROUND]
 
     // public functions
     fun render() {
