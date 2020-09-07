@@ -159,9 +159,5 @@ class GameRenderer(private val assetManager: AssetManager,
     override fun dispose() {
         renderer.dispose()
         batch.dispose()
-        uiFont.dispose()
-        playerTexture.dispose()
-        obstacleTexture.dispose()
-        backgroundTexture.dispose()
     }
 }
