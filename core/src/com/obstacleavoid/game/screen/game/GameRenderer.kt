@@ -56,6 +56,8 @@ class GameRenderer(private val assetManager: AssetManager,
 
     // public functions
     fun render() {
+        batch.totalRenderCalls = 0
+
         // handle debug camera controller
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)
@@ -78,6 +80,7 @@ class GameRenderer(private val assetManager: AssetManager,
         renderGamePlay()
         renderUi()
 
+        log.debug("totalRenderCalls= ${batch.totalRenderCalls}")
         //renderDebug() // this is for showing the actual object boundaries
         //viewport.drawGrid(renderer) // shows grid in background
     }
