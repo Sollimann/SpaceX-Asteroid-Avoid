@@ -1,6 +1,8 @@
 package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.assets.AssetDescriptor
+import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.Texture
@@ -13,7 +15,9 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.utils.Disposable
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
+import com.obstacleavoid.game.assets.AssetDescriptors
 import com.obstacleavoid.game.assets.AssetPaths
+import com.obstacleavoid.game.assets.RegionNames
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
@@ -21,11 +25,14 @@ import com.obstacleavoid.game.util.circle
 import com.obstacleavoid.game.util.clearScreen
 import com.obstacleavoid.game.util.debug.DebugCameraController
 import com.obstacleavoid.game.util.drawGrid
+import com.obstacleavoid.game.util.get
 import com.obstacleavoid.game.util.logger
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
+import javax.swing.plaf.synth.Region
 
-class GameRenderer(private val controller: GameController) : Disposable {
+class GameRenderer(private val assetManager: AssetManager,
+                   private val controller: GameController) : Disposable {
 
     companion object {
         @JvmStatic
@@ -46,13 +53,16 @@ class GameRenderer(private val controller: GameController) : Disposable {
     }
 
     // assets
-    private val uiFont = BitmapFont(AssetPaths.PURSIA_FONT.toInternalFile())
-    private val playerTexture = Texture(AssetPaths.PLAYER_TEXTURE.toInternalFile())
-    private val obstacleTexture = Texture(AssetPaths.OBSTACLE_TEXTURE.toInternalFile())
-    private val backgroundTexture = Texture(AssetPaths.BACKGROUND_TEXTURE.toInternalFile())
+    private val uiFont = assetManager[AssetDescriptors.FONT]
+    private val gameplayAtlas = assetManager[AssetDescriptors.GAMEPLAY]
+    private val playerTexture = gameplayAtlas[RegionNames.PLAYER]
+    private val obstacleTexture = gameplayAtlas[RegionNames.OBSTACLE]
+    private val backgroundTexture = gameplayAtlas[RegionNames.BACKGROUND]
 
     // public functions
     fun render() {
+        batch.totalRenderCalls = 0
+
         // handle debug camera controller
         debugCameraController.handleDebugInput()
         debugCameraController.applyTo(camera)
@@ -75,6 +85,7 @@ class GameRenderer(private val controller: GameController) : Disposable {
         renderGamePlay()
         renderUi()
 
+        //log.debug("totalRenderCalls= ${batch.totalRenderCalls}")
         //renderDebug() // this is for showing the actual object boundaries
         //viewport.drawGrid(renderer) // shows grid in background
     }
@@ -156,9 +167,5 @@ class GameRenderer(private val controller: GameController) : Disposable {
     override fun dispose() {
         renderer.dispose()
         batch.dispose()
-        uiFont.dispose()
-        playerTexture.dispose()
-        obstacleTexture.dispose()
-        backgroundTexture.dispose()
     }
 }
