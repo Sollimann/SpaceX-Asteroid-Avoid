@@ -6,6 +6,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.utils.Logger
 import com.obstacleavoid.game.screen.game.GameScreen
+import com.obstacleavoid.game.screen.loading.LoadingScreen
 
 class ObstacleAvoidGame : Game() {
 
@@ -15,7 +16,7 @@ class ObstacleAvoidGame : Game() {
         Gdx.app.logLevel = Application.LOG_DEBUG
         assetManager.logger.level = Logger.DEBUG
 
-        setScreen(GameScreen(this))
+        setScreen(LoadingScreen(this))
     }
 
     override fun dispose() {

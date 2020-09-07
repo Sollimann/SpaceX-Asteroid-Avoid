@@ -85,7 +85,7 @@ class GameRenderer(private val assetManager: AssetManager,
         renderGamePlay()
         renderUi()
 
-        log.debug("totalRenderCalls= ${batch.totalRenderCalls}")
+        //log.debug("totalRenderCalls= ${batch.totalRenderCalls}")
         //renderDebug() // this is for showing the actual object boundaries
         //viewport.drawGrid(renderer) // shows grid in background
     }
