@@ -1,6 +1,7 @@
 package com.obstacleavoid.game.screen.game
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.assets.AssetDescriptor
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -16,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.utils.viewport.Viewport
 import com.obstacleavoid.game.assets.AssetDescriptors
 import com.obstacleavoid.game.assets.AssetPaths
+import com.obstacleavoid.game.assets.RegionNames
 import com.obstacleavoid.game.config.GameConfig
 import com.obstacleavoid.game.entity.Obstacle
 import com.obstacleavoid.game.entity.Player
@@ -26,6 +28,7 @@ import com.obstacleavoid.game.util.drawGrid
 import com.obstacleavoid.game.util.logger
 import com.obstacleavoid.game.util.toInternalFile
 import com.obstacleavoid.game.util.use
+import javax.swing.plaf.synth.Region
 
 class GameRenderer(private val assetManager: AssetManager,
                    private val controller: GameController) : Disposable {
@@ -50,9 +53,10 @@ class GameRenderer(private val assetManager: AssetManager,
 
     // assets
     private val uiFont = assetManager[AssetDescriptors.FONT]
-    private val playerTexture = assetManager[AssetDescriptors.PLAYER]
-    private val obstacleTexture = assetManager[AssetDescriptors.OBSTACLE]
-    private val backgroundTexture = assetManager[AssetDescriptors.BACKGROUND]
+    private val gameplayAtlas = assetManager[AssetDescriptors.GAMEPLAY]
+    private val playerTexture = gameplayAtlas.findRegion(RegionNames.PLAYER)
+    private val obstacleTexture = gameplayAtlas.findRegion(RegionNames.OBSTACLE)
+    private val backgroundTexture = gameplayAtlas.findRegion(RegionNames.BACKGROUND)
 
     // public functions
     fun render() {

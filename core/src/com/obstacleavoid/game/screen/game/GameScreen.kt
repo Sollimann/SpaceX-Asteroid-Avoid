@@ -20,9 +20,7 @@ class GameScreen(val game : ObstacleAvoidGame) : Screen {
     /** Called when this screen becomes the current screen for a {@link Game}. */
     override fun show() {
         assetManager.load(AssetDescriptors.FONT)
-        assetManager.load(AssetDescriptors.BACKGROUND)
-        assetManager.load(AssetDescriptors.OBSTACLE)
-        assetManager.load(AssetDescriptors.PLAYER)
+        assetManager.load(AssetDescriptors.GAMEPLAY)
 
         // blocks until all resources/assets are loaded
         assetManager.finishLoading()
